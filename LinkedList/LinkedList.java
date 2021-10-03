@@ -110,18 +110,25 @@ public class LinkedList<E> implements ListI<E>{
         return null;
     }
 
+    // Find and return obj -- Time Complexity: O(n)
     @Override
-    public E get(E element) {
+    public E get(E obj) {
+        Node<E> current = head;
+        while(current != null){
+            if(((Comparable<E>)current.data).compareTo(obj) == 0)
+                return current.data;
+            current = current.next;
+        }
         return null;
     }
 
-    // Returns size of list
+    // Return size of list -- Time Complexity: O(1)
     @Override
     public int size() {
         return currentSize;
     }
 
-    // Check if LinkedList contains element obj
+    // Check if LinkedList contains obj -- Time Complexity: O(n)
     public boolean contains(E obj){
         Node<E> current = head;
         while(current != null){
@@ -132,7 +139,7 @@ public class LinkedList<E> implements ListI<E>{
         return false;
     }
 
-    // Return first element
+    // Return first element -- Time Complexity: O(1)
     @Override
     public E peekFirst(){
         if(head == null)
@@ -140,11 +147,46 @@ public class LinkedList<E> implements ListI<E>{
         return head.data;
     }
 
-    // Return last element
+    // Return last element -- Time Complexity: O(1)
     @Override
     public E peekLast(){
         if(tail == null)
             return null;
         return tail.data;
     }
+
+    // Print every element in the list -- Time Complexity: O(n)
+    public void print(){
+        // Check if list is empty
+        if(head == null)
+            return;
+        Node<E> current = head;
+        while(current != tail.next) {
+            System.out.print(current.data + ", ");
+            current = current.next;
+        }
+    }
+
+    // Reverse list in place -- Time Complexity O(n)
+    public void reverse(){
+        // Check if list is empty
+        if (head == null){
+            return;
+        // Check if only one element in the list
+        }else if (head == tail){
+            return;
+        }
+        Node<E> curr = head;
+        Node<E> previous = null;
+        Node<E> after = null;
+        tail = curr;
+        while (curr != null){
+            after = curr.next;
+            curr.next = previous;
+            previous = curr;
+            curr = after;
+        }
+        head = previous;
+    }
 }
+
